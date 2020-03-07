@@ -8,16 +8,12 @@
 
 import Foundation
 
-class CopyOnWriteSwift {
-    static let name = "CopyOnWriteSwift"
-}
-
-public final class Ref<T> {
+final class Ref<T> {
   var val : T
   init(_ v : T) {val = v}
 }
 
-public struct Box<T> {
+struct Box<T> {
     var ref : Ref<T>
     init(_ x : T) { ref = Ref(x) }
     var value: T {
@@ -34,12 +30,12 @@ public struct Box<T> {
 
 @propertyWrapper
 public struct CopyOnWrite<T: Any> {
-    public let box: Box<T>
-    
+    let box: Box<T>
+
     public var wrappedValue: T {
         return box.value
     }
-    
+
     public init(wrappedValue: T) {
         box = Box(wrappedValue)
     }
